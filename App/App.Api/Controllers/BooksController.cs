@@ -1,4 +1,7 @@
-﻿using App.BL.Interfaces;
+﻿using App.Api.Mappers;
+using App.Api.Models;
+using App.BL.Interfaces;
+using App.DTO.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -27,11 +30,11 @@ namespace App.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<Guid> CreateBook([FromBody] bookRequest book)
+        public async Task<Guid> CreateBook([FromBody] BookRequest book)
         {
             try
             {
-                return await _bookService.CreateBook(bookMapper.Map(book));
+                return await _bookService.CreateBook(BookMapper.Map(book));
             }
             catch (Exception ex)
             {
@@ -40,11 +43,11 @@ namespace App.Api.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<Guid> UpdateBook(Guid id, [FromBody] bookRequest book)
+        public async Task<Guid> UpdateBook(Guid id, [FromBody] BookRequest book)
         {
             try
             {
-                return await _bookService.UpdateBook(id, bookMapper.Map(book));
+                return await _bookService.UpdateBook(id, BookMapper.Map(book));
             }
             catch (Exception ex)
             {

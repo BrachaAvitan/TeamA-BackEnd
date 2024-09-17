@@ -1,7 +1,9 @@
 using App.BL.Interfaces;
 using App.BL.Services;
+using App.DAL.DataContext;
 using App.DAL.Interfaces;
 using App.DAL.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +23,10 @@ builder.Services.AddCors(options =>
         .AllowAnyMethod()
         .AllowAnyOrigin();
     });
+});
+builder.Services.AddDbContext<BooksContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("sql"));
 });
 
 builder.Services.AddScoped<IBooksRepository, BooksRepository>();
